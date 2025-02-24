@@ -34,7 +34,7 @@ Each car in the database contains the following fields:
 - **Color**
 - **Year of Production**
 - **Price**
-- 
+
 ## Setup and Running the Application
 
 ### Configuration
