@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    environment:
+      POSTGRES_USER: caru
+      POSTGRES_PASSWORD: carp
+      POSTGRES_DB: car-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - car-network
+
+  app:
+    image: your-app-image
+    build: .
+    ports:
+      - "8090:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/car-db
+      SPRING_DATASOURCE_USERNAME: caru
+      SPRING_DATASOURCE_PASSWORD: carp
+    depends_on:
+      - postgres
+    networks:
+      - car-network
+
+volumes:
+  postgres_data:
+
+networks:
+  car-network:
+    driver: bridge
